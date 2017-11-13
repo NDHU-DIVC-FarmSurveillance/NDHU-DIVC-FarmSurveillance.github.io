@@ -1,0 +1,42 @@
+.hide { display: none; }
+
+
+
+body { margin: 0; }
+main {
+    display: block;
+    width: calc( 100% - 25% );
+    margin-right: 25%;
+    padding: 5px;
+    background: #000000;
+    box-sizing: border-box;
+}
+
+
+
+.menu { right: 0; position: fixed; width: 25%; height: 100%; overflow: auto; }
+.menu .title {
+    padding: 20px 0;
+    font-size: 2em;
+    text-align: center;
+    background: #3f51b5;
+    color: #FFFFFF;
+}
+.menu .cameras, .menu .controller { margin-top: 50px; font-size: 1.5em; text-align: center; }
+.menu .cameras .item, .menu .controller .item { color: #727272; }
+.menu .cameras .item:hover, .menu .controller .item:hover { color: #303f9f; cursor: pointer; background: rgba(0,0,0,0.05); }
+
+
+
+main .views { display: block; overflow: auto; }
+main .views .label { position: absolute; margin: 5px 10px; font-size: 1.5em; }
+main .views .view-grid {
+    float: left;
+    width: 50%;
+    border: 5px solid #000000;
+    box-sizing: border-box;
+    cursor: pointer;
+    user-select: none;
+}
+main .views .view-full { width: 100% !important; height: 100% !important; }
+main .views div[data-view-id] > img { display: block; pointer-events: none; }

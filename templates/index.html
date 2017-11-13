@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Video Streaming Demonstration</title>
+        <link rel="stylesheet" href="../static/css/style.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <div class="menu" data-id="menu">
+            <div class="title">Video Streaming Demonstration</div>
+            <div class="cameras"></div>
+            <div class="controller">
+                <div class="item" data-click="view-all">檢視全部</div>
+            </div>
+        </div>
+        <main><div class="views" data-id="views"></div></main>
+        <script>
+            (function(){
+                var img,
+
+                REMOTE_ADDR = 'http://localhost:8000',
+
+                menu        = $('[data-id="menu"]'),
+                menuRegion  = {
+                    cameras:    menu.find('.cameras'),
+                    controller: menu.find('.controller')
+                },
+                viewport    = $('[data-id="views"]'),
+
+                source      = new EventSource( REMOTE_ADDR+ '/video/' ),
+                first       = true;
+
+
+
+                source.onmessage = function(e){
+                    var views = e.data.split('---');
+
+                    if( first )
+                    {
+                        $.each(views, function(key, view){
+                            var
+                            menuBtn = $('<div>', { 'data-view-id': key }).text( 'camera ' + key ).addClass('item'),
+                            label   = $('<div>').text('ch-' + key + ' fps').addClass('label'),
+                            image   = $('<img>', {'width': '100%'}),
+                            content = $('<div>', { 'data-view-id': key }).addClass('view-grid');
+
+                            menuRegion.cameras.append(menuBtn);
+                            viewport.append(content.append(label).append(image));
+                        });
+
+                        first = false;
+                    }
+
+
+
+                    img = viewport.find('[data-view-id]').first();
+                    $.each(views, function(key, view){
+                        var
+                        data        = view.split('___'),
+                        image       = data[0],
+                        prediction  = data[1];
+
+                        img.find('img').attr('src', 'data:image/jpeg;base64,' + image);
+                        img = img.next();
+                    });
+                };
+
+                source.onerror = function(e){
+                    console.log(e);
+                    source.close();
+                };
+
+
+                menuRegion.cameras.on('click', '[data-view-id]', function(e){
+                    var
+                    target = $(e.target),
+                    viewId = target.data('view-id');
+
+                    ___CLEAR_ALL_STATE();
+                    viewport.find('[data-view-id="' + viewId + '"]').click();
+                });
+
+                menuRegion.controller.on('click', '[data-click="view-all"]', ___CLEAR_ALL_STATE);
+
+                viewport.on('click', '[data-view-id]', function(e){
+                    var target = $(e.target);
+
+                    if( target.data('state') === 'full' ){
+                        target.siblings().removeClass('hide');
+                        target.removeClass('view-full');
+                        target.data('state', '');
+                        return;
+                    }
+
+
+
+                    target.siblings().addClass('hide').removeClass('view-full');
+                    target.addClass('view-full');
+                    target.data('state', 'full');
+                });
+
+
+
+                function ___CLEAR_ALL_STATE(){
+                    viewport.find('[data-view-id]').removeClass('hide view-full').data('state', '');
+                }
+            })();
+        </script>
+    </body>
+</html>
