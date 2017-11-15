@@ -39,4 +39,4 @@ main .views .view-grid {
     user-select: none;
 }
 main .views .view-full { width: 100% !important; height: 100% !important; }
-main .views div[data-view-id] > img { display: block; pointer-events: none; }
+main .views div[data-view-id] > img { display: block; width: 100%; min-height: 3em; pointer-events: none; }

@@ -4,6 +4,7 @@
         <title>Video Streaming Demonstration</title>
         <link rel="stylesheet" href="../static/css/style.css">
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
     </head>
     <body>
         <div class="menu" data-id="menu">
@@ -14,11 +15,20 @@
             </div>
         </div>
         <main><div class="views" data-id="views"></div></main>
+        <script tpl="menu-camera-list" type="text/html">
+            <div data-view-id="${viewId}" class="item">camera ${viewId}</div>
+        </script>
+        <script tpl="view-camera-list" type="text/html">
+            <div class="view-grid" data-view-id="${viewId}">
+                <div class="label">ch-${viewId} fps</div>
+                <img>
+            </div>
+        </script>
         <script>
             (function(){
-                var img,
-
+                var
                 REMOTE_ADDR = 'http://localhost:8000',
+                CAMERA_LSIT = [ '0', '1', '2', '3' ],
 
                 menu        = $('[data-id="menu"]'),
                 menuRegion  = {
@@ -26,49 +36,17 @@
                     controller: menu.find('.controller')
                 },
                 viewport    = $('[data-id="views"]'),
-
-                source      = new EventSource( REMOTE_ADDR+ '/video/' ),
-                first       = true;
-
-
-
-                source.onmessage = function(e){
-                    var views = e.data.split('---');
-
-                    if( first )
-                    {
-                        $.each(views, function(key, view){
-                            var
-                            menuBtn = $('<div>', { 'data-view-id': key }).text( 'camera ' + key ).addClass('item'),
-                            label   = $('<div>').text('ch-' + key + ' fps').addClass('label'),
-                            image   = $('<img>', {'width': '100%'}),
-                            content = $('<div>', { 'data-view-id': key }).addClass('view-grid');
-
-                            menuRegion.cameras.append(menuBtn);
-                            viewport.append(content.append(label).append(image));
-                        });
-
-                        first = false;
-                    }
-
-
-
-                    img = viewport.find('[data-view-id]').first();
-                    $.each(views, function(key, view){
-                        var
-                        data        = view.split('___'),
-                        image       = data[0],
-                        prediction  = data[1];
-
-                        img.find('img').attr('src', 'data:image/jpeg;base64,' + image);
-                        img = img.next();
-                    });
+                tpl         = {
+                    menuCameraList: $('script[tpl="menu-camera-list"]').html(),
+                    viewCameraList: $('script[tpl="view-camera-list"]').html()
                 };
 
-                source.onerror = function(e){
-                    console.log(e);
-                    source.close();
-                };
+
+
+                $.each( CAMERA_LSIT, function(idx, cameraId){
+                    ___REGISTER_VIEW( REMOTE_ADDR + '/video/', cameraId );
+                } );
+
 
 
                 menuRegion.cameras.on('click', '[data-view-id]', function(e){
@@ -100,6 +78,32 @@
                 });
 
 
+
+                function ___REGISTER_VIEW( apiAddr, cameraId ){
+                    $.tmpl( tpl.menuCameraList, { viewId: cameraId } ).appendTo( menuRegion.cameras );
+                    $.tmpl( tpl.viewCameraList, { viewId: cameraId } ).appendTo( viewport );
+
+                    var
+                    source = new EventSource( apiAddr + cameraId ),
+                    dataView = viewport.find('[data-view-id="' + cameraId + '"]');
+
+
+                    dataView.height( dataView.width() / 640 * 480 );
+
+                    source.onmessage = function(e){
+                        var
+                        data        = e.data.split('___'),
+                        image       = data[0],
+                        prediction  = data[1];
+
+                        dataView.find('img').attr('src', 'data:image/jpeg;base64,' + image);
+                    };
+
+                    source.onerror = function(e){
+                        console.log(e);
+                        source.close();
+                    };
+                }
 
                 function ___CLEAR_ALL_STATE(){
                     viewport.find('[data-view-id]').removeClass('hide view-full').data('state', '');
