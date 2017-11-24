@@ -29,7 +29,7 @@ main {
 
 
 main .views { display: block; overflow: auto; }
-main .views .label { position: absolute; margin: 5px 10px; font-size: 1.5em; }
+main .views .label { position: absolute; margin: 5px 10px; font-size: 1.5em; color: #FFFFFF; text-shadow: 0 0 3px #000000; }
 main .views .view-grid {
     float: left;
     width: 50%;
