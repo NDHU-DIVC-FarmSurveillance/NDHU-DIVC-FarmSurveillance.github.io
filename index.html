@@ -85,6 +85,7 @@
                     $.tmpl( tpl.viewCameraList, { viewId: cameraId } ).appendTo( viewport );
 
                     var
+                    LABELS      = ['person'],
                     source      = new EventSource( apiAddr + cameraId ),
                     dataView    = viewport.find('[data-view-id="' + cameraId + '"]'),
                     viewRegion  = {
@@ -130,6 +131,10 @@
 
                             context.drawImage(imgObj.get(0), 0, 0, width, height);
                             $.each(prediction, function(idx, pred){
+                                if( $.inArray( pred.label, LABELS ) === -1 ) return;
+
+
+
                                 var
                                 x           = pred.topleft.x,
                                 y           = pred.topleft.y,
