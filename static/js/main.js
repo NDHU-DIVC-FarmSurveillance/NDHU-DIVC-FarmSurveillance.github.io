@@ -1,6 +1,3 @@
-/**
-* Created by world4jason on 18/01/2018.
-*/
 (function(){
     var
     REMOTE_ADDR     = 'http://134.208.3.188:8000',
@@ -62,6 +59,7 @@
 
         var
         LABELS      = ['person'],
+        COLOR       = '#f45c42',
         source      = new EventSource( apiAddr + cameraId ),
         dataView    = viewport.find('[data-view-id="' + cameraId + '"]'),
         viewRegion  = {
@@ -118,7 +116,7 @@
                     h           = pred.bottomright.y - pred.topleft.y,
                     label       = pred.label + ' ' + pred.confidence.toFixed(2),
                     textLength  = context.measureText(label).width,
-                    color       = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                    color       = COLOR;
 
                     context.strokeStyle = color;
                     context.fillStyle = color;
