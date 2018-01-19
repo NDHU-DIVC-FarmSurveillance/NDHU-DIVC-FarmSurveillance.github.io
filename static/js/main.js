@@ -1,4 +1,8 @@
 (function(){
+    'use strict';
+
+
+
     var
     REMOTE_ADDR     = 'http://134.208.3.188:8000',
     CAMERA_LSIT     = [ '1', '2', '3', '4' ],
@@ -137,24 +141,22 @@
 
                 // INFO: Update person counter
                 viewRegion.person.text( frameInfo.person );
+
+                // INFO: Update frame counter
+                frameInfo.frameCount ++;
+                if( frameInfo.frameCount % TIME_INTERVAL === 1  )
+                {
+                    frameInfo.timeStart = Date.now();
+                }
+                else
+                if( frameInfo.frameCount % TIME_INTERVAL === 0 )
+                {
+                    frameInfo.timeEnd = Date.now();
+                    frameInfo.fps = TIME_INTERVAL * 1000 / ( frameInfo.timeEnd - frameInfo.timeStart );
+                    viewRegion.fps.text( frameInfo.fps.toFixed(2) );
+                }
             });
             imgObj.src = 'data:image/jpeg;base64,' + image;
-
-
-
-            // INFO: Update frame counter
-            frameInfo.frameCount ++;
-            if( frameInfo.frameCount % TIME_INTERVAL === 1  )
-            {
-                frameInfo.timeStart = Date.now();
-            }
-            else
-            if( frameInfo.frameCount % TIME_INTERVAL === 0 )
-            {
-                frameInfo.timeEnd = Date.now();
-                frameInfo.fps = TIME_INTERVAL * 1000 / ( frameInfo.timeEnd - frameInfo.timeStart );
-                viewRegion.fps.text( frameInfo.fps.toFixed(2) );
-            }
         };
 
         source.onerror = function(e){
