@@ -77,23 +77,23 @@
 
 
         source.onmessage = function(e){
-            frameInfo.person = 0;
-
-
-
             var
             data        = e.data.split('___'),
             image       = data[0],
             prediction  = $.parseJSON( data[1] || '' ),
-            imgObj      = $('<img/>', { src: 'data:image/jpeg;base64,' + image }),
+            imgObj      = new Image(),
             canvas      = $('#canvas-' + cameraId),
             context     = canvas.get(0).getContext('2d');
 
 
-            imgObj.bind('load', function(){
+            imgObj.addEventListener('load', function(){
+                frameInfo.person = 0;
+
+
+
                 var
-                width       = imgObj.width() || 640,
-                height      = imgObj.height() || 480,
+                width       = imgObj.width || 640,
+                height      = imgObj.height || 480,
                 textSize    = 25;
 
                 context.canvas.width = width;
@@ -103,9 +103,9 @@
                 context.font = textSize + 'px Arial';
                 context.textBaseline = 'bottom';
 
-                context.drawImage(imgObj.get(0), 0, 0, width, height);
+                context.drawImage(imgObj, 0, 0, width, height);
                 $.each(prediction, function(idx, pred){
-                    if( $.inArray( pred.label, LABELS ) === -1 ) return;
+                    //if( $.inArray( pred.label, LABELS ) === -1 ) return;
 
 
 
@@ -130,7 +130,7 @@
 
 
 
-                    if( pred.label === 'person' ) frameInfo.person++;
+                    if( pred.label === 'person' || (typeof pred.label === 'number')  ) frameInfo.person++;
                 });
 
 
@@ -138,6 +138,7 @@
                 // INFO: Update person counter
                 viewRegion.person.text( frameInfo.person );
             });
+            imgObj.src = 'data:image/jpeg;base64,' + image;
 
 
 
