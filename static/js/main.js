@@ -16,7 +16,8 @@
     viewport        = $('[data-id="views"]'),
     tpl             = {
         menuCameraList: $('script[tpl="menu-camera-list"]').html(),
-        viewCameraList: $('script[tpl="view-camera-list"]').html()
+        viewCameraList: $('script[tpl="view-camera-list"]').html(),
+        trackSmallList: $('script[tpl="track-small-list"]').html()
     };
 
 
@@ -68,7 +69,8 @@
         dataView    = viewport.find('[data-view-id="' + cameraId + '"]'),
         viewRegion  = {
             fps:    dataView.find('[data-view-info="fps"]'),
-            person: dataView.find('[data-view-info="person"]')
+            person: dataView.find('[data-view-info="person"]'),
+            track:  dataView.find('[data-view-info="track"]')
         },
         frameInfo   = {
             frameCount: 0,
@@ -76,7 +78,9 @@
             timeEnd: 0,
             fps: 0,
             person: 0
-        };
+        },
+        canvasTracking  = $('#canvas-track-small-' + cameraId).get(0),
+        contextTracking = canvasTracking.getContext('2d');
 
 
 
@@ -86,11 +90,10 @@
             image       = data[0],
             prediction  = $.parseJSON( data[1] || '' ),
             imgObj      = new Image(),
-            canvas      = $('#canvas-' + cameraId),
-            context     = canvas.get(0).getContext('2d');
-
-
-            imgObj.addEventListener('load', function(){
+            canvas      = $('#canvas-' + cameraId).get(0),
+            context     = canvas.getContext('2d'),
+            loadHandler = function(){
+                viewRegion.track.empty();
                 frameInfo.person = 0;
 
 
@@ -135,6 +138,13 @@
 
 
                     if( pred.label === 'person' || (typeof pred.label === 'number')  ) frameInfo.person++;
+
+
+
+                    // INFO: Draw tracking people
+                    contextTracking.clearRect( 0, 0, canvasTracking.width, canvasTracking.height );
+                    contextTracking.drawImage(imgObj, x, y, w, h, 0, 0, canvasTracking.width, canvasTracking.height);
+                    $.tmpl( tpl.trackSmallList, { id: pred.label, src: canvasTracking.toDataURL() } ).appendTo( viewRegion.track );
                 });
 
 
@@ -155,7 +165,15 @@
                     frameInfo.fps = TIME_INTERVAL * 1000 / ( frameInfo.timeEnd - frameInfo.timeStart );
                     viewRegion.fps.text( frameInfo.fps.toFixed(2) );
                 }
-            });
+
+
+
+                imgObj.removeEventListener('load', loadHandler);
+            };
+
+
+
+            imgObj.addEventListener('load', loadHandler);
             imgObj.src = 'data:image/jpeg;base64,' + image;
         };
 

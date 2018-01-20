@@ -31,6 +31,7 @@ main {
 main .views { display: block; overflow: auto; }
 main .views .label { position: absolute; margin: 5px 10px; font-size: 1.5em; color: #FFFFFF; text-shadow: 0 0 3px #000000; }
 main .views .view-grid {
+    position: relative;
     float: left;
     width: 50%;
     border: 5px solid #000000;
@@ -38,5 +39,17 @@ main .views .view-grid {
     cursor: pointer;
     user-select: none;
 }
+main .views .view-grid > * { pointer-events: none; }
+main .views .view-grid > canvas { display: block; width: calc( 100% - 200px - 5px ); min-height: 3em; }
+main .views .view-grid > .track-small-viewport {
+    position: absolute; top: 0; right: 0;
+    overflow: hidden;
+    width: 200px; height: 100%
+}
+main .views .view-grid > .track-small-viewport img { width: 50px; height: 100px; }
+main .views .view-grid > .canvas-track-small { display: none; width: 50px; height: 100px; }
 main .views .view-full { width: 100% !important; height: 100% !important; }
-main .views div[data-view-id] > canvas { display: block; width: 100%; min-height: 3em; pointer-events: none; }
+
+
+
+
