@@ -121,7 +121,7 @@
                     y           = pred.topleft.y,
                     w           = pred.bottomright.x - pred.topleft.x,
                     h           = pred.bottomright.y - pred.topleft.y,
-                    label       = pred.label + ' ' + pred.confidence.toFixed(2),
+                    label       = pred.label + (pred.confidence < 0 ? '': ' ' + pred.confidence.toFixed(2)),
                     textLength  = context.measureText(label).width,
                     color       = COLOR;
 
