@@ -40,8 +40,9 @@ main .views .view-grid {
     user-select: none;
 }
 main .views .view-grid > * { pointer-events: none; }
-main .views .view-grid > canvas { display: block; width: calc( 100% - 200px - 5px ); min-height: 3em; }
+main .views .view-grid > canvas { display: block; width: 100%; min-height: 3em; }
 main .views .view-grid > .track-small-viewport {
+    display: none;
     position: absolute; top: 0; right: 0;
     overflow: hidden;
     width: 200px; height: 100%
@@ -56,8 +57,6 @@ main .views .view-grid > .track-small-viewport .item .title {
 }
 main .views .view-grid > .track-small-viewport .item img { width: 100%; height: 100px; }
 main .views .view-grid > .canvas-track-small { display: none; width: 50px; height: 100px; }
-main .views .view-full { width: 100% !important; height: 100% !important; }
-
-
-
-
+main .views .view-grid.view-full { width: 100%; height: 100%; }
+main .views .view-grid.view-full > canvas { width: calc( 100% - 200px - 5px ); }
+main .views .view-grid.view-full > .track-small-viewport { display: block; }
