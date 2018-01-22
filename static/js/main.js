@@ -109,7 +109,11 @@
                 var
                 width       = imgObj.width || 640,
                 height      = imgObj.height || 480,
-                textSize    = 25;
+                textSize    = 25,
+                fitInfo     = {
+                    canvas: { width: canvasTracking.width, height: canvasTracking.height },
+                    image:  { width: imgObj.width, height: imgObj.height }
+                };
 
                 context.canvas.width    = width;
                 context.canvas.height   = height;
@@ -127,7 +131,8 @@
                     h           = pred.bottomright.y - pred.topleft.y,
                     label       = pred.label + (pred.confidence < 0 ? '': ' ' + pred.confidence.toFixed(2)),
                     textLength  = context.measureText(label).width,
-                    color       = COLOR;
+                    color       = COLOR,
+                    fit         = ___FIT_IMAGE_ON( fitInfo.canvas, fitInfo.image );
 
                     context.strokeStyle = color;
                     context.fillStyle = color;
@@ -147,7 +152,7 @@
 
                     // INFO: Draw tracking people
                     contextTracking.clearRect( 0, 0, canvasTracking.width, canvasTracking.height );
-                    contextTracking.drawImage(imgObj, x, y, w, h, 0, 0, canvasTracking.width, canvasTracking.height);
+                    contextTracking.drawImage(imgObj, x, y, w, h, fit.x, fit.y, fit.w, fit.h);
                     $.tmpl( tpl.trackSmallList, { id: pred.label, src: canvasTracking.toDataURL() } ).appendTo( viewRegion.track );
                 });
 
@@ -184,5 +189,47 @@
 
     function ___CLEAR_ALL_STATE(){
         viewport.find('[data-view-id]').removeClass('hide view-full').data('state', '');
+    }
+    
+    
+    function ___FIT_IMAGE_ON(canvasInfo, imageInfo) {
+        var imageAspectRatio    = imageInfo.width / imageInfo.height;
+        var canvasAspectRatio   = canvasInfo.width / canvasInfo.height;
+        var renderableHeight, renderableWidth, xStart, yStart;
+    
+        // If image's aspect ratio is less than canvas's we fit on height
+        // and place the image centrally along width
+        if(imageAspectRatio < canvasAspectRatio) {
+            renderableHeight    = canvasInfo.height;
+            renderableWidth     = imageInfo.width * (renderableHeight / imageInfo.height);
+            xStart              = (canvasInfo.width - renderableWidth) / 2;
+            yStart              = 0;
+        }
+    
+        // If image's aspect ratio is greater than canvas's we fit on width
+        // and place the image centrally along height
+        else if(imageAspectRatio > canvasAspectRatio) {
+            renderableWidth     = canvasInfo.width;
+            renderableHeight    = imageInfo.height * (renderableWidth / imageInfo.width);
+            xStart              = 0;
+            yStart              = (canvasInfo.height - renderableHeight) / 2;
+        }
+    
+        // Happy path - keep aspect ratio
+        else {
+            renderableHeight    = canvasInfo.height;
+            renderableWidth     = canvasInfo.width;
+            xStart              = 0;
+            yStart              = 0;
+        }
+
+
+
+        return {
+            x: xStart,
+            y: yStart,
+            w: renderableWidth,
+            h: renderableHeight
+        };
     }
 })();
