@@ -63,7 +63,6 @@
         $.tmpl( tpl.viewCameraList, { viewId: cameraId } ).appendTo( viewport );
 
         var
-        LABELS      = ['person'],
         COLOR       = '#f45c42',
         source      = new EventSource( apiAddr + cameraId ),
         dataView    = viewport.find('[data-view-id="' + cameraId + '"]'),
@@ -74,10 +73,10 @@
         },
         frameInfo   = {
             frameCount: 0,
-            timeStart: 0,
-            timeEnd: 0,
-            fps: 0,
-            person: 0
+            timeStart:  0,
+            timeEnd:    0,
+            fps:        0,
+            person:     0
         },
         canvasTracking  = $('#canvas-track-small-' + cameraId).get(0),
         contextTracking = canvasTracking.getContext('2d');
@@ -91,8 +90,17 @@
             prediction  = $.parseJSON( data[1] || '' ),
             imgObj      = new Image(),
             canvas      = $('#canvas-' + cameraId).get(0),
-            context     = canvas.getContext('2d'),
-            loadHandler = function(){
+            context     = canvas.getContext('2d');
+
+
+
+
+            imgObj.addEventListener('load', __LOAD_HANDLER);
+            imgObj.src = 'data:image/jpeg;base64,' + image;
+
+
+
+            function __LOAD_HANDLER(){
                 viewRegion.track.empty();
                 frameInfo.person = 0;
 
@@ -103,19 +111,15 @@
                 height      = imgObj.height || 480,
                 textSize    = 25;
 
-                context.canvas.width = width;
-                context.canvas.height = height;
+                context.canvas.width    = width;
+                context.canvas.height   = height;
 
-                context.lineWidth = 3;
-                context.font = textSize + 'px Arial';
-                context.textBaseline = 'bottom';
+                context.lineWidth       = 3;
+                context.font            = textSize + 'px Arial';
+                context.textBaseline    = 'bottom';
 
                 context.drawImage(imgObj, 0, 0, width, height);
                 $.each(prediction, function(idx, pred){
-                    //if( $.inArray( pred.label, LABELS ) === -1 ) return;
-
-
-
                     var
                     x           = pred.topleft.x,
                     y           = pred.topleft.y,
@@ -168,13 +172,8 @@
 
 
 
-                imgObj.removeEventListener('load', loadHandler);
-            };
-
-
-
-            imgObj.addEventListener('load', loadHandler);
-            imgObj.src = 'data:image/jpeg;base64,' + image;
+                imgObj.removeEventListener('load', __LOAD_HANDLER);
+            }
         };
 
         source.onerror = function(e){
