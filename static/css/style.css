@@ -5,8 +5,8 @@
 body { margin: 0; }
 main {
     display: block;
-    width: calc( 100% - 25% );
-    margin-right: 25%;
+    width: calc( 100% - 20% );
+    margin-right: 20%;
     padding: 5px;
     background: #000000;
     box-sizing: border-box;
@@ -14,7 +14,7 @@ main {
 
 
 
-.menu { right: 0; position: fixed; width: 25%; height: 100%; overflow: auto; }
+.menu { right: 0; position: fixed; width: 20%; height: 100%; overflow: auto; }
 .menu .title {
     padding: 20px 0;
     font-size: 2em;
