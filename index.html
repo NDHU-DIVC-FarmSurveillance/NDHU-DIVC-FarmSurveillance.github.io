@@ -25,7 +25,10 @@
             </div>
         </script>
         <script tpl="track-small-list" type="text/html">
-            <img data-track-id="${id}" src="${src}">
+            <div class="item" data-track-id="${id}">
+                <div class="title">${id}</div>
+                <img src="${src}">
+            </div>
         </script>
     </body>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

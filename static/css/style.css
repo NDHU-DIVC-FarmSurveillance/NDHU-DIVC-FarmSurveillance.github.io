@@ -46,7 +46,15 @@ main .views .view-grid > .track-small-viewport {
     overflow: hidden;
     width: 200px; height: 100%
 }
-main .views .view-grid > .track-small-viewport img { width: 50px; height: 100px; }
+main .views .view-grid > .track-small-viewport .item { display: inline-block; width: 50px; height: calc(32px + 100px); }
+main .views .view-grid > .track-small-viewport .item .title {
+    box-sizing: border-box;
+    width: 100%; height: 32px;
+    color: #ffffff;
+    background: #f45c42;
+    border: 3px solid #000000;
+}
+main .views .view-grid > .track-small-viewport .item img { width: 100%; height: 100px; }
 main .views .view-grid > .canvas-track-small { display: none; width: 50px; height: 100px; }
 main .views .view-full { width: 100% !important; height: 100% !important; }
 
