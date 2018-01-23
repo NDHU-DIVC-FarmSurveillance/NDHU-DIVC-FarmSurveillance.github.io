@@ -29,7 +29,6 @@ main {
 
 
 main .views { display: block; overflow: auto; }
-main .views .label { position: absolute; margin: 5px 10px; font-size: 1.5em; color: #FFFFFF; text-shadow: 0 0 3px #000000; }
 main .views .view-grid {
     position: relative;
     float: left;
@@ -39,6 +38,8 @@ main .views .view-grid {
     cursor: pointer;
     user-select: none;
 }
+main .views .view-grid .label { position: absolute; margin: 5px 10px; font-size: 1.5em; color: #FFFFFF; text-shadow: 0 0 3px #000000; }
+main .views .view-grid .label .important { color: #ff0000; }
 main .views .view-grid > * { pointer-events: none; }
 main .views .view-grid > canvas { display: block; width: 100%; min-height: 3em; }
 main .views .view-grid > .track-small-viewport {

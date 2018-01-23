@@ -18,8 +18,8 @@
         </script>
         <script tpl="view-camera-list" type="text/html">
             <div class="view-grid" data-view-id="${viewId}">
-                <!--<div class="label">Ch-${viewId} <span data-view-info="fps">${fps}</span> fps <span data-view-info="person">${people}</span> people</div>-->
-                <div class="label">Ch-${viewId}  <span data-view-info="person">${people}</span> people</div>
+                <!--<div class="label">Ch-${viewId} <span data-view-info="fps">${fps}</span> fps <span class="important" data-view-info="person">${people}</span> people</div>-->
+                <div class="label">Ch-${viewId}  <span class="important" data-view-info="person">${people}</span> people</div>
                 <canvas id="canvas-${viewId}">Your browser does not support the HTML5 canvas tag.</canvas>
                 <div class="track-small-viewport" data-view-info="track"></div>
                 <canvas id="canvas-track-small-${viewId}" class="canvas-track-small"></canvas>
