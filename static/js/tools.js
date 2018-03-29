@@ -1,6 +1,7 @@
 (function(){
     var TOOLS = {
-        FIT_IMAGE_ON: ___FIT_IMAGE_ON
+        FIT_IMAGE_ON: ___FIT_IMAGE_ON,
+        UPDATE_COUNTER_ANIMATION: ___UPDATE_COUNTER_ANIMATION
     };
 
 
@@ -46,7 +47,17 @@
         };
     }
 
+    function ___UPDATE_COUNTER_ANIMATION(countInfo){
+        window.COUNTING_UPDATE(countInfo);
+    }
+
 
 
     window.TOOLS = TOOLS;
+})();
+
+(function() {
+    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                                window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    window.requestAnimationFrame = requestAnimationFrame;
 })();

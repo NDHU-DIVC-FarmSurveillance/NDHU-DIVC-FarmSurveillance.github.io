@@ -27,8 +27,13 @@
         </script>
         <script tpl="track-small-list" type="text/html">
             <div class="item" data-track-id="${id}">
-                <div class="title">${id}</div>
+                <!--<div class="title">${id}</div>-->
                 <img src="${src}">
+            </div>
+        </script>
+        <script tpl="view-plan" type="text/html">
+            <div class="view-grid" data-view-id="${viewId}">
+                <canvas id="canvas-plan" class="plan" data-view-id="${viewId}" data-plan="${plan}"></canvas>
             </div>
         </script>
     </body>
@@ -36,4 +41,5 @@
 	<script src="https://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
     <script type="text/javascript" src='static/js/tools.js'></script>
     <script type="text/javascript" src='static/js/main.js'></script>
+    <script type="text/javascript" src='static/js/plan.js'></script>
 </html>

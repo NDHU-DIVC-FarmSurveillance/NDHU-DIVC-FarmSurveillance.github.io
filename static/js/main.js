@@ -5,7 +5,7 @@
 
     var
     REMOTE_ADDR     = 'http://134.208.3.188:8000',
-    CAMERA_LSIT     = [ '1', '2', '3', '4' ],
+    CAMERA_LSIT     = [ '1', '2', '3'],
     TIME_INTERVAL   = 5,
 
     menu            = $('[data-id="menu"]'),
@@ -88,6 +88,7 @@
             data        = e.data.split('___'),
             image       = data[0],
             prediction  = $.parseJSON( data[1] || '' ),
+            counting    = $.parseJSON( data[2] || {} ),
             imgObj      = new Image(),
             canvas      = $('#canvas-' + cameraId).get(0),
             context     = canvas.getContext('2d');
@@ -139,12 +140,13 @@
                     context.fillStyle = color;
                     context.strokeRect(x, y, w, h);
 
+                    /*
                     context.fillRect(x, y-textSize, textLength, textSize);
                     context.strokeRect(x, y-textSize, textLength, textSize);
 
                     context.fillStyle = '#FFFFFF';
                     context.fillText(label, x, y);
-
+                    */
 
 
                     if( pred.label === 'person' || (typeof pred.label === 'number')  ) frameInfo.person++;
@@ -175,6 +177,9 @@
                     frameInfo.fps = TIME_INTERVAL * 1000 / ( frameInfo.timeEnd - frameInfo.timeStart );
                     viewRegion.fps.text( frameInfo.fps.toFixed(2) );
                 }
+
+                // INFO: Update counter animation
+                TOOLS.UPDATE_COUNTER_ANIMATION($.extend(counting, { cameraId: cameraId }));
 
 
 
