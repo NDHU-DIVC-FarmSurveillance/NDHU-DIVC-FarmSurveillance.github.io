@@ -106,6 +106,7 @@
                 status:         CONFIG.STATUS.NONE,
                 startTime:      null
             } );
+            prevCounting.crossedAbove.count = counting.crossedAbove;
         }
 
         if( prevCounting.crossedBelow.count < counting.crossedBelow )
@@ -116,6 +117,7 @@
                 status:         CONFIG.STATUS.NONE,
                 startTime:      null
             } );
+            prevCounting.crossedBelow.count = counting.crossedBelow;
         }
 
 
