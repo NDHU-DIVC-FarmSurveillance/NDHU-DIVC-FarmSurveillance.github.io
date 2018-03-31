@@ -141,6 +141,7 @@
                     context.strokeRect(x, y, w, h);
 
                     /*
+                    // INFO: Label and text on bounding boxes
                     context.fillRect(x, y-textSize, textLength, textSize);
                     context.strokeRect(x, y-textSize, textLength, textSize);
 

@@ -152,12 +152,12 @@
 
 
 
-        ___DRAW_POINT_ANIMATION();
+        ___DRAW_PERSON_ANIMATION();
     }
 
 
 
-    function ___DRAW_POINT_ANIMATION(){
+    function ___DRAW_PERSON_ANIMATION(){
         ___DRAW_PLAN();
 
 
@@ -231,7 +231,7 @@
         } );
 
         if( animations.length > 0 )
-            window.requestAnimationFrame( ___DRAW_POINT_ANIMATION );
+            window.requestAnimationFrame( ___DRAW_PERSON_ANIMATION );
         else
             ___DRAW_PLAN();
     }
