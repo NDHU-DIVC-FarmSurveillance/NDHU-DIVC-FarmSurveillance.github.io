@@ -9,7 +9,7 @@
         WIDTH               : 640,
         HEIGHT              : 480,
         ANIMATION_LENGTH    : 1 * 1000,
-        POINT_RADIUS        : 8,
+        POINT_RADIUS        : 5,
         POINT_START         : 0,
         POINT_END           : 2 * Math.PI,
         POINT_COLOR         : {
