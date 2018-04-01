@@ -4,6 +4,7 @@
 
 
     var
+    LOCAL_RES   = 'static/img/',
     CONFIG      = {
         PLAN_ID             : 4,
         WIDTH               : 640,
@@ -31,43 +32,21 @@
             PROCESSING: 1,
             FINISHED:   2
         },
-        CAMERA              : {
-            '1': {
-                crossedAbove: {
-                    count:    0,
-                    start:    { x: 520,   y: 70 },
-                    end:      { x: 540,   y: 70 }
-                },
-                crossedBelow: {
-                    count:    0,
-                    start:    { x: 540,   y: 70 },
-                    end:      { x: 520,   y: 70 }
-                }
+        CAMERA_INFO: {
+            ICON_SIZE: {
+                WIDTH:  50,
+                HEIGHT: 50
             },
-            '2': {
-                crossedAbove: {
-                    count:    0,
-                    start:    { x: 210,   y: 75 },
-                    end:      { x: 210,   y: 55 }
-                },
-                crossedBelow: {
-                    count:    0,
-                    start:    { x: 210,   y: 55 },
-                    end:      { x: 210,   y: 75 }
-                }
-            },
-            '3': {
-                crossedAbove: {
-                    count:    0,
-                    start:    { x: 5,    y: 345 },
-                    end:      { x: 5,    y: 325 }
-                },
-                crossedBelow: {
-                    count:    0,
-                    start:    { x: 5,    y: 325 },
-                    end:      { x: 5,    y: 345 }
-                }
-            }
+            ICONS: [
+                { src: LOCAL_RES + 'camera-icon-1.png', color: '#44b9d5' },
+                { src: LOCAL_RES + 'camera-icon-2.png', color: '#75bda7' },
+                { src: LOCAL_RES + 'camera-icon-3.png', color: '#7c639a' },
+                { src: LOCAL_RES + 'camera-icon-4.png', color: '#db637f' }
+            ],
+            ICON_COLOR_BLUE:    0,
+            ICON_COLOR_GREEN:   1,
+            ICON_COLOR_PURPLE:  2,
+            ICON_COLOR_PINK:    3
         }
     },
     context     = null,
@@ -78,7 +57,72 @@
     },
     viewport    = $('[data-id="views"]'),
     tpl         = $('script[tpl="view-plan"]').html(),
-    animations  = [];
+    animations  = [],
+    cameras     = {
+        '1': {
+            crossedAbove: {
+                text:     'In :',
+                count:    0,
+                start:    { x: 520,   y: 70 },
+                end:      { x: 540,   y: 70 }
+            },
+            crossedBelow: {
+                text:     'Out:',
+                count:    0,
+                start:    { x: 540,   y: 70 },
+                end:      { x: 520,   y: 70 }
+            },
+            location: {
+                icon:     { x: 460, y: 100 },
+                label:    { x: 365, y: 200 }
+            },
+            icon: new Image(),
+            colorId: CONFIG.CAMERA_INFO.ICON_COLOR_PINK,
+            available: true
+        },
+        '2': {
+            crossedAbove: {
+                text:     'In :',
+                count:    0,
+                start:    { x: 210,   y: 75 },
+                end:      { x: 210,   y: 55 }
+            },
+            crossedBelow: {
+                text:     'Out:',
+                count:    0,
+                start:    { x: 210,   y: 55 },
+                end:      { x: 210,   y: 75 }
+            },
+            location: {
+                icon:     { x: 196, y: 5 },
+                label:    { x: 242, y: 200 }
+            },
+            icon: new Image(),
+            colorId: CONFIG.CAMERA_INFO.ICON_COLOR_GREEN,
+            available: true
+        },
+        '3': {
+            crossedAbove: {
+                text:     'In :',
+                count:    0,
+                start:    { x: 5,    y: 345 },
+                end:      { x: 5,    y: 325 }
+            },
+            crossedBelow: {
+                text:     'Out:',
+                count:    0,
+                start:    { x: 5,    y: 325 },
+                end:      { x: 5,    y: 345 }
+            },
+            location: {
+                icon:     { x: 25, y: 280 },
+                label:    { x: 120, y: 200 }
+            },
+            icon: new Image(),
+            colorId: CONFIG.CAMERA_INFO.ICON_COLOR_BLUE,
+            available: true
+        }
+    };
 
 
 
@@ -91,9 +135,16 @@
 
 
     function ___INIT(){
-        plan.src    = 'static/img/engineering_2_building_3rd_floor_layout.png';
-        person.above.src  = 'static/img/walk-sequence-above.png';
-        person.below.src  = 'static/img/walk-sequence-below.png';
+        $.each(cameras, function(idx, camera){
+            var icon = CONFIG.CAMERA_INFO.ICONS[camera.colorId];
+            camera.icon.src     = icon.src;
+            camera.color   = icon.color;
+        });
+        plan.src    = LOCAL_RES + 'engineering_2_building_3rd_floor_layout.png';
+        person.above.src  = LOCAL_RES + 'walk-sequence-above.png';
+        person.below.src  = LOCAL_RES + 'walk-sequence-below.png';
+
+
 
         context = $('#canvas-plan').get(0).getContext('2d');
         context.canvas.width    = CONFIG.WIDTH;
@@ -109,20 +160,20 @@
             CONFIG.ANIMATION_PERSON.HEIGHT  = person.above.height;
             for( var i = 0; i < CONFIG.ANIMATION_PERSON.RANGE; i++ )
                 CONFIG.ANIMATION_PERSON.STEPS.push( CONFIG.ANIMATION_PERSON.WIDTH / CONFIG.ANIMATION_PERSON.RANGE * i)
-        })
+        });
     }
 
 
 
     function ___COUNTING_UPDATE(counting){
-        if( !counting.cameraId in CONFIG.CAMERA ) {
+        if( !counting.cameraId in cameras ) {
             console.log( 'Undefined counting configuration.' );
             return;
         }
 
 
 
-        var prevCounting = CONFIG.CAMERA[counting.cameraId];
+        var prevCounting = cameras[counting.cameraId];
 
         if( prevCounting.crossedAbove.count < counting.crossedAbove )
         {
@@ -241,6 +292,43 @@
     function ___DRAW_PLAN(){
         context.clearRect( 0, 0, CONFIG.WIDTH, CONFIG.HEIGHT );
         context.drawImage( plan, 0, 0, CONFIG.WIDTH, CONFIG.HEIGHT );
+        ___DRAW_CAMERAS();
+    }
+
+    function ___DRAW_CAMERAS(){
+
+        $.each(cameras, function(idx, camera){
+            if(!camera.available) return;
+
+            var
+            x                   = camera.location.label.x,
+            y                   = camera.location.label.y,
+            textSize            = 25,
+            lineHeight          = 25,
+            padding             = 10,
+            textCrossedAbove    = camera.crossedAbove.text + camera.crossedAbove.count,
+            textCrossedBelow    = camera.crossedBelow.text + camera.crossedBelow.count,
+            textLength1         = context.measureText(textCrossedAbove).width,
+            textLength2         = context.measureText(textCrossedBelow).width,
+            // ISSUE: Unexpected error estimation text length on first element
+            //textLength          = textLength1 > textLength2 ? textLength1: textLength2;
+            textLength          = 90;
+
+
+            context.drawImage(camera.icon, camera.location.icon.x, camera.location.icon.y, CONFIG.CAMERA_INFO.ICON_SIZE.WIDTH, CONFIG.CAMERA_INFO.ICON_SIZE.HEIGHT);
+
+
+            context.fillStyle   = camera.color;
+            context.strokeStyle = camera.color;
+            TOOLS.DRAW_ROUND_RECT(context, x - padding, y - textSize-padding / 2, textLength + padding * 2, lineHeight * 2 + padding * 2, 20, true);
+
+
+            context.font        = textSize + 'px Arial';
+            context.fillStyle = '#FFFFFF';
+            context.fillText(textCrossedAbove, x, y);
+            context.fillText(textCrossedBelow, x, y + lineHeight);
+
+        })
     }
 
 
