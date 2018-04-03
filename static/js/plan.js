@@ -38,10 +38,10 @@
                 HEIGHT: 50
             },
             ICONS: [
-                { src: LOCAL_RES + 'camera-icon-1.png', color: '#44b9d5' },
-                { src: LOCAL_RES + 'camera-icon-2.png', color: '#75bda7' },
-                { src: LOCAL_RES + 'camera-icon-3.png', color: '#7c639a' },
-                { src: LOCAL_RES + 'camera-icon-4.png', color: '#db637f' }
+                { src: LOCAL_RES + 'camera-icon-2-2.png',   color: '#44b9d5' },
+                { src: LOCAL_RES + 'camera-icon-2.png',     color: '#75bda7' },
+                { src: LOCAL_RES + 'camera-icon-2-3.png',   color: '#7c639a' },
+                { src: LOCAL_RES + 'camera-icon-2-4.png',   color: '#db637f' }
             ],
             ICON_COLOR_BLUE:    0,
             ICON_COLOR_GREEN:   1,
@@ -61,20 +61,20 @@
     cameras     = {
         '1': {
             crossedAbove: {
-                text:     'In :',
+                text:     'D1 :',
                 count:    0,
-                start:    { x: 520,   y: 70 },
-                end:      { x: 540,   y: 70 }
+                start:    { x: 210,   y: 45 },
+                end:      { x: 210,   y: 65 }
             },
             crossedBelow: {
-                text:     'Out:',
+                text:     'D2 :',
                 count:    0,
-                start:    { x: 540,   y: 70 },
-                end:      { x: 520,   y: 70 }
+                start:    { x: 210,   y: 65 },
+                end:      { x: 210,   y: 45 }
             },
             location: {
-                icon:     { x: 460, y: 100 },
-                label:    { x: 365, y: 200 }
+                icon:     { x: 196, y: 5 },
+                label:    { x: 242, y: 200 }
             },
             icon: new Image(),
             colorId: CONFIG.CAMERA_INFO.ICON_COLOR_PINK,
@@ -82,20 +82,20 @@
         },
         '2': {
             crossedAbove: {
-                text:     'In :',
+                text:     'D1 : ',
                 count:    0,
-                start:    { x: 210,   y: 75 },
-                end:      { x: 210,   y: 55 }
+                start:    { x: 500,   y: 70 },
+                end:      { x: 500,   y: 50 }
             },
             crossedBelow: {
-                text:     'Out:',
+                text:     'D2 : ',
                 count:    0,
-                start:    { x: 210,   y: 55 },
-                end:      { x: 210,   y: 75 }
+                start:    { x: 500,   y: 50 },
+                end:      { x: 500,   y: 70 }
             },
             location: {
-                icon:     { x: 196, y: 5 },
-                label:    { x: 242, y: 200 }
+                icon:     { x: 460, y: 100 },
+                label:    { x: 365, y: 200 }
             },
             icon: new Image(),
             colorId: CONFIG.CAMERA_INFO.ICON_COLOR_GREEN,
@@ -103,16 +103,16 @@
         },
         '3': {
             crossedAbove: {
-                text:     'In :',
+                text:     'D1 : ',
                 count:    0,
-                start:    { x: 5,    y: 345 },
-                end:      { x: 5,    y: 325 }
+                start:    { x: 5,    y: 335 },
+                end:      { x: 5,    y: 355 }
             },
             crossedBelow: {
-                text:     'Out:',
+                text:     'D2 : ',
                 count:    0,
-                start:    { x: 5,    y: 325 },
-                end:      { x: 5,    y: 345 }
+                start:    { x: 5,    y: 355 },
+                end:      { x: 5,    y: 335 }
             },
             location: {
                 icon:     { x: 25, y: 280 },
