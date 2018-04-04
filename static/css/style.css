@@ -2,6 +2,18 @@
 
 
 
+span[class^="icon-"] {
+    display: inline-block;
+    content: ' ';
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+}
+span.icon-camera { background-image: url('../../static/img/camera-icon-5.png'); }
+span.icon-grid { background-image: url('../../static/img/icon-grid-4.png'); }
+
+
+
 body { margin: 0; }
 main {
     display: block;
@@ -22,10 +34,12 @@ main {
     background: #3f51b5;
     color: #FFFFFF;
 }
-.menu .cameras, .menu .controller { font-size: 1.5em; text-align: center; }
 .menu .cameras { margin-top: 50px; }
+.menu .cameras, .menu .controller { font-size: 1.5em; text-align: center; }
 .menu .cameras .item, .menu .controller .item { color: #727272; }
 .menu .cameras .item:hover, .menu .controller .item:hover { color: #303f9f; cursor: pointer; background: rgba(0,0,0,0.05); }
+.menu .cameras .item > span { margin-right: 5px; }
+.menu .controller .item > span { margin-right: 10px; }
 
 
 
