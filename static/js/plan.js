@@ -9,8 +9,8 @@
         PLAN_ID             : 4,
         WIDTH               : 640,
         HEIGHT              : 480,
-        ANIMATION_LENGTH    : 1.5 * 1000,
-        ANIMATION_INTERVAL  : 100,
+        ANIMATION_LENGTH    : 3 * 1000,
+        ANIMATION_INTERVAL  : 200,
         ANIMATION_PERSON    : {
             STEPS:  [],
             RANGE:  8,      // animation variation range
