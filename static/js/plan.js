@@ -61,20 +61,24 @@
     cameras     = {
         '1': {
             crossedAbove: {
-                text:     'D1 :',
+                text:     'D1',
                 count:    0,
-                start:    { x: 210,   y: 45 },
-                end:      { x: 210,   y: 65 }
+                start:    { x: 215,   y: 45 },
+                end:      { x: 215,   y: 65 }
             },
             crossedBelow: {
-                text:     'D2 :',
+                text:     'D2',
                 count:    0,
-                start:    { x: 210,   y: 65 },
-                end:      { x: 210,   y: 45 }
+                start:    { x: 215,   y: 65 },
+                end:      { x: 215,   y: 45 }
             },
             location: {
                 icon:     { x: 196, y: 5 },
-                label:    { x: 242, y: 200 }
+                label:    { x: 242, y: 200 },
+                arrow:    {
+                    d1: { icon: '↓', x: 200, y: 80 },
+                    d2: { icon: '↑', x: 230, y: 80 }
+                }
             },
             icon: new Image(),
             colorId: CONFIG.CAMERA_INFO.ICON_COLOR_PINK,
@@ -82,20 +86,24 @@
         },
         '2': {
             crossedAbove: {
-                text:     'D1 : ',
+                text:     'D1',
                 count:    0,
-                start:    { x: 500,   y: 70 },
-                end:      { x: 500,   y: 50 }
+                start:    { x: 485,   y: 70 },
+                end:      { x: 485,   y: 50 }
             },
             crossedBelow: {
-                text:     'D2 : ',
+                text:     'D2',
                 count:    0,
-                start:    { x: 500,   y: 50 },
-                end:      { x: 500,   y: 70 }
+                start:    { x: 485,   y: 50 },
+                end:      { x: 485,   y: 70 }
             },
             location: {
                 icon:     { x: 460, y: 100 },
-                label:    { x: 365, y: 200 }
+                label:    { x: 365, y: 200 },
+                arrow:    {
+                    d1: { icon: '↑', x: 475, y: 80 },
+                    d2: { icon: '↓', x: 505, y: 80 }
+                }
             },
             icon: new Image(),
             colorId: CONFIG.CAMERA_INFO.ICON_COLOR_GREEN,
@@ -103,20 +111,24 @@
         },
         '3': {
             crossedAbove: {
-                text:     'D1 : ',
+                text:     'D1',
                 count:    0,
                 start:    { x: 5,    y: 335 },
                 end:      { x: 5,    y: 355 }
             },
             crossedBelow: {
-                text:     'D2 : ',
+                text:     'D2',
                 count:    0,
                 start:    { x: 5,    y: 355 },
                 end:      { x: 5,    y: 335 }
             },
             location: {
                 icon:     { x: 25, y: 280 },
-                label:    { x: 120, y: 200 }
+                label:    { x: 120, y: 200 },
+                arrow:    {
+                    d1: { icon: '↓', x: 35, y: 410 },
+                    d2: { icon: '↑', x: 65, y: 410 }
+                }
             },
             icon: new Image(),
             colorId: CONFIG.CAMERA_INFO.ICON_COLOR_BLUE,
@@ -301,13 +313,14 @@
             if(!camera.available) return;
 
             var
-            x                   = camera.location.label.x,
-            y                   = camera.location.label.y,
+            location            = camera.location,
+            x                   = location.label.x,
+            y                   = location.label.y,
             textSize            = 25,
             lineHeight          = 25,
             padding             = 10,
-            textCrossedAbove    = camera.crossedAbove.text + camera.crossedAbove.count,
-            textCrossedBelow    = camera.crossedBelow.text + camera.crossedBelow.count,
+            textCrossedAbove    = camera.crossedAbove.text + ' : ' + camera.crossedAbove.count,
+            textCrossedBelow    = camera.crossedBelow.text + ' : ' + camera.crossedBelow.count,
             textLength1         = context.measureText(textCrossedAbove).width,
             textLength2         = context.measureText(textCrossedBelow).width,
             // ISSUE: Unexpected error estimation text length on first element
@@ -315,7 +328,7 @@
             textLength          = 90;
 
 
-            context.drawImage(camera.icon, camera.location.icon.x, camera.location.icon.y, CONFIG.CAMERA_INFO.ICON_SIZE.WIDTH, CONFIG.CAMERA_INFO.ICON_SIZE.HEIGHT);
+            context.drawImage(camera.icon, location.icon.x, location.icon.y, CONFIG.CAMERA_INFO.ICON_SIZE.WIDTH, CONFIG.CAMERA_INFO.ICON_SIZE.HEIGHT);
 
 
             context.fillStyle   = camera.color;
@@ -323,10 +336,21 @@
             TOOLS.DRAW_ROUND_RECT(context, x - padding, y - textSize-padding / 2, textLength + padding * 2, lineHeight * 2 + padding * 2, 20, true);
 
 
+            // INFO: Labels
             context.font        = textSize + 'px Arial';
             context.fillStyle = '#FFFFFF';
             context.fillText(textCrossedAbove, x, y);
             context.fillText(textCrossedBelow, x, y + lineHeight);
+
+
+
+            // INFO: Arrows
+            context.fillStyle = CONFIG.POINT_COLOR.crossedAbove;
+            context.fillText( location.arrow.d1.icon, location.arrow.d1.x, location.arrow.d1.y );
+            context.fillText( camera.crossedAbove.text, location.arrow.d1.x - 30, location.arrow.d1.y );
+            context.fillStyle = CONFIG.POINT_COLOR.crossedBelow;
+            context.fillText( location.arrow.d2.icon , location.arrow.d2.x, location.arrow.d2.y);
+            context.fillText( camera.crossedBelow.text , location.arrow.d2.x + 15, location.arrow.d2.y);
 
         })
     }
