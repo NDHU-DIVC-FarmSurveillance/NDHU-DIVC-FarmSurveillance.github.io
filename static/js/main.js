@@ -6,6 +6,12 @@
     var
     REMOTE_ADDR     = 'http://134.208.3.188:8000',
     CAMERA_LSIT     = [ '1', '2', '3'],
+    CAMERA_NAMES    = {
+        '1': 'DIVC Lab',
+        '2': 'AI Lab',
+        '3': 'A325',
+        '4': ''
+    },
     TIME_INTERVAL   = 5,
 
     menu            = $('[data-id="menu"]'),
@@ -59,7 +65,7 @@
 
 
     function ___REGISTER_VIEW( apiAddr, cameraId ){
-        $.tmpl( tpl.menuCameraList, { viewId: cameraId } ).appendTo( menuRegion.cameras );
+        $.tmpl( tpl.menuCameraList, { name: CAMERA_NAMES[cameraId],viewId: cameraId } ).appendTo( menuRegion.cameras );
         $.tmpl( tpl.viewCameraList, { viewId: cameraId } ).appendTo( viewport );
 
         var
