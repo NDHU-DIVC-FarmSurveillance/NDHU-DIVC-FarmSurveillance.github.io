@@ -1,19 +1,87 @@
 <!DOCTYPE html>
 <html>
     <head>
-          <meta charset="utf-8">
-        <title>NDHU Engineering II Building 3rd Floor</title>
+        <meta charset="utf-8">
+        <title>NDHU Surveillance System</title>
+        <link rel="stylesheet" href="static/css/template.css">
         <link rel="stylesheet" href="static/css/style.css">
     </head>
     <body>
-        <div class="menu" data-id="menu">
-            <div class="title">NDHU Engineering II Building 3rd Floor</div>
-            <div class="cameras"></div>
-            <div class="controller">
-                <div class="item" data-click="view-all"><span class="icon-grid"></span>View all</div>
+        <aside class="user-dashboard">
+            <div class="user-details-container">
+                <a  class="avatar user-profile">
+                    <img src="./static/img/profile.png">
+                </a>
+                <a  class="user-settings">
+                    <i class="stroke-config"></i>
+                </a>
             </div>
-        </div>
-        <main><div class="views" data-id="views"></div></main>
+            <nav class="main">
+                <h5 style='text-align: center'>Welcom IC-Chang</h5>
+                <ul class="nav-container">
+                    <li class="nav-item open">
+                        <span>Engineering Building II</span>
+                        <ul class="subnav">
+                            <li><a><div data-view-id='1'>[Ch1] 3rd DIVC Lab</div></a></li>
+                            <li><a><div data-view-id='2'>[Ch2] 3rd Restroom</div></a></li>
+                            <li><a><div data-view-id='3'>[CH3] 3rd Staircase</div></a></li>
+                            <li><a >View All</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <span>Status</span>
+                        <ul class="subnav">
+                           <li><a >option 1</a></li>
+                           <li><a >option 2</a></li>
+                           <li><a >option 3</a></li>
+                           <li><a >option 4</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <span>Diary</span>
+                        <ul class="subnav">
+                            <li><a >option 1</a></li>
+                            <li><a >option 2</a></li>
+                            <li><a >option 3</a></li>
+                            <li><a >option 4</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <span>analysis</span>
+                        <ul class="subnav">
+                            <li><a >option 1</a></li>
+                            <li><a >option 2</a></li>
+                            <li><a >option 3</a></li>
+                            <li><a >option 4</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <span>Setting</span>
+                        <ul class="subnav">
+                            <li><a >option 1</a></li>
+                            <li><a >option 2</a></li>
+                            <li><a >option 3</a></li>
+                            <li><a >option 4</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main">
+            <header class="main">
+                <h5>Engineering Building II 3rd Floor</h5>
+            </header>
+            <div class='scroll-container'>
+                <div class="menu" data-id="menu">
+                    <div class="title">NDHU Engineering II Building 3rd Floor</div>
+                    <div class="cameras"></div>
+                    <div class="controller">
+                        <div class="item" data-click="view-all"><span class="icon-grid"></span>View all</div>
+                    </div>
+                </div>
+                <main><div class="views" data-id="views"></div></main>
+            </div>
+        </main>
         <script tpl="menu-camera-list" type="text/html">
             <div data-view-id="${viewId}" class="item"><span class="icon-camera"></span>${name} (Channel-${viewId})</div>
         </script>
@@ -43,4 +111,9 @@
     <script type="text/javascript" src='static/js/tools.js'></script>
     <script type="text/javascript" src='static/js/main.js'></script>
     <script type="text/javascript" src='static/js/plan.js'></script>
+    <script>
+        $('li.nav-item').click( function() {
+           $(this).toggleClass('open');
+        });
+    </script>
 </html>
