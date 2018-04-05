@@ -35,7 +35,7 @@ main {
     color: #FFFFFF;
 }
 .menu .cameras { margin-top: 50px; }
-.menu .cameras, .menu .controller { font-size: 1.5em; text-align: center; }
+.menu .cameras, .menu .controller { font-size: 1.5em; margin-left: 20px; }
 .menu .cameras .item, .menu .controller .item { color: #727272; }
 .menu .cameras .item:hover, .menu .controller .item:hover { color: #303f9f; cursor: pointer; background: rgba(0,0,0,0.05); }
 .menu .cameras .item > span { margin-right: 5px; }
