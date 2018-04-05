@@ -105,8 +105,8 @@
     <script type="text/javascript" src='static/js/main.js'></script>
     <script type="text/javascript" src='static/js/plan.js'></script>
     <script>
-        $('li.nav-item').click( function() {
-           $(this).toggleClass('open');
+        $('.user-dashboard nav.main li.nav-item > span').click( function(e) {
+           $(e.target).parent().toggleClass('open');
         });
     </script>
 </html>
