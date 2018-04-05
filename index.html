@@ -72,23 +72,16 @@
                 <h5>Engineering Building II 3rd Floor</h5>
             </header>
             <div class='scroll-container'>
-                <div class="menu" data-id="menu">
-                    <div class="title">NDHU Engineering II Building 3rd Floor</div>
-                    <div class="cameras"></div>
-                    <div class="controller">
-                        <div class="item" data-click="view-all"><span class="icon-grid"></span>View all</div>
-                    </div>
-                </div>
                 <main><div class="views" data-id="views"></div></main>
             </div>
         </main>
         <script tpl="menu-camera-list" type="text/html">
-            <div data-view-id="${viewId}" class="item"><span class="icon-camera"></span>${name} (Channel-${viewId})</div>
+            <div data-view-id="${viewId}" class="item"><span class="icon-camera"></span>${name} (Ch-${viewId})</div>
         </script>
         <script tpl="view-camera-list" type="text/html">
             <div class="view-grid" data-view-id="${viewId}">
-                <!--<div class="label">Channel-${viewId} <span data-view-info="fps">${fps}</span> fps <span class="important" data-view-info="person">${people}</span> people</div>-->
-                <div class="label">Channel-${viewId}  <span class="important" data-view-info="person">${people}</span> people</div>
+                <!--<div class="label">Ch-${viewId} <span data-view-info="fps">${fps}</span> fps <span class="important" data-view-info="person">${people}</span> people</div>-->
+                <div class="label">Ch-${viewId}  <span class="important" data-view-info="person">${people}</span> people</div>
                 <canvas id="canvas-${viewId}">Your browser does not support the HTML5 canvas tag.</canvas>
                 <div class="track-small-viewport" data-view-info="track"></div>
                 <canvas id="canvas-track-small-${viewId}" class="canvas-track-small"></canvas>

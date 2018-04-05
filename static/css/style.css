@@ -17,9 +17,7 @@ span.icon-grid { background-image: url('../../static/img/icon-grid-4.png'); }
 body { margin: 0; }
 main {
     display: block;
-    width: calc( 100% - 20% );
-    margin-right: 20%;
-    padding: 5px;
+    width: 100%;
     background: #000000;
     box-sizing: border-box;
 }
