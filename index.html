@@ -1,18 +1,75 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Surveillance and People Counting System</title>
-        <link rel="stylesheet" href="static/css/style.css">
-    </head>
-    <body>
-        <div class="menu" data-id="menu">
-            <div class="title">Surveillance and People Counting System</div>
-            <div class="cameras"></div>
-            <div class="controller">
-                <div class="item" data-click="view-all">檢視全部</div>
-            </div>
-        </div>
-        <main><div class="views" data-id="views"></div></main>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>NDHU Surveillance System</title>
+  <link rel="stylesheet" href="./static/css/style.css">
+<body translate="no">
+  <aside class="user-dashboard">
+   <div class="user-details-container">
+      <a  class="avatar user-profile">
+         <img src="./static/img/profile.png">
+      </a>
+      <a  class="user-settings">
+         <i class="stroke-config"></i>
+      </a>
+   </div>
+   <nav class="main">
+      <h5 style='text-align: center'>Welcom IC-Chang</h5>
+      <ul class="nav-container">
+         <li class="nav-item open">
+            <span>Engineering Building II</span>
+            <ul class="subnav">
+               <li><a><div data-view-id='1'>[Ch1] 3rd DIVC Lab</div></a></li>
+               <li><a><div data-view-id='2'>[Ch2] 3rd Restroom</div></a></li>
+               <li><a><div data-view-id='3'>[CH3] 3rd Staircase</div></a></li>
+               <li><a >View All</a></li>
+            </ul>
+         </li>
+         <li class="nav-item">
+            <span>Status</span>
+            <ul class="subnav">
+               <li><a >option 1</a></li>
+               <li><a >option 2</a></li>
+               <li><a >option 3</a></li>
+               <li><a >option 4</a></li>
+            </ul>
+         </li>
+         <li class="nav-item">
+            <span>Diary</span>
+            <ul class="subnav">
+               <li><a >option 1</a></li>
+               <li><a >option 2</a></li>
+               <li><a >option 3</a></li>
+               <li><a >option 4</a></li>
+            </ul>
+         </li>
+         <li class="nav-item">
+            <span>analysis</span>
+            <ul class="subnav">
+               <li><a >option 1</a></li>
+               <li><a >option 2</a></li>
+               <li><a >option 3</a></li>
+               <li><a >option 4</a></li>
+            </ul>
+         </li>
+         <li class="nav-item">
+            <span>Setting</span>
+            <ul class="subnav">
+               <li><a >option 1</a></li>
+               <li><a >option 2</a></li>
+               <li><a >option 3</a></li>
+               <li><a >option 4</a></li>
+            </ul>
+         </li>
+      </ul>
+   </nav>
+</aside>
+<main class="main">
+   <header class="main">
+      <h5>Engineering Building II 3rd Floor</h5>
+   </header>
+   <div class='scroll-container'>
+	   <main><div class="views" data-id="views"></div></main>
         <script tpl="menu-camera-list" type="text/html">
             <div data-view-id="${viewId}" class="item">camera ${viewId}</div>
         </script>
@@ -36,10 +93,19 @@
                 <canvas id="canvas-plan" class="plan" data-view-id="${viewId}" data-plan="${plan}"></canvas>
             </div>
         </script>
-    </body>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="https://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
-    <script type="text/javascript" src='static/js/tools.js'></script>
-    <script type="text/javascript" src='static/js/main.js'></script>
-    <script type="text/javascript" src='static/js/plan.js'></script>
-</html>
+   </div>
+
+</main>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src='static/js/tools.js'></script>
+<script type="text/javascript" src='static/js/main.js'></script>
+<script type="text/javascript" src='static/js/plan.js'></script>
+<script>
+$('li.nav-item').click( function() {
+   $(this).toggleClass('open');
+});
+</script>
+
+</body></html>
