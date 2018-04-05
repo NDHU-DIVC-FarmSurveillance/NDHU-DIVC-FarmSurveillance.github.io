@@ -5,12 +5,13 @@
 
     var
     REMOTE_ADDR     = 'http://134.208.3.188:8000',
-    CAMERA_LSIT     = [ '1', '2', '3'],
+    CAMERA_LSIT     = [ '1', '2', '3' ],
     CAMERA_NAMES    = {
-        '1': 'DIVC Lab',
-        '2': 'AI Lab',
-        '3': 'A325',
-        '4': ''
+        '1':    '[Ch1] 3rd DIVC Lab',
+        '2':    '[Ch2] 3rd Restroom',
+        '3':    '[CH3] 3rd Staircase',
+        '4':    '',
+        'all':  'View All'
     },
     TIME_INTERVAL   = 5,
 
@@ -31,13 +32,19 @@
     $.each( CAMERA_LSIT, function(idx, cameraId){
         ___REGISTER_VIEW( REMOTE_ADDR + '/video/', cameraId );
     } );
+    $.tmpl( tpl.menuCameraList, { name: CAMERA_NAMES['all'],viewId: 'all' } ).appendTo( menu );
 
 
 
-    menuRegion.cameras.on('click', '[data-view-id]', function(e){
+    menu.on('click', '[data-view-id]', function(e){
         var
         target = $(e.target),
         viewId = target.data('view-id');
+
+        if( viewId === 'all' ){
+            ___CLEAR_ALL_STATE();
+            return;
+        }
 
         ___CLEAR_ALL_STATE();
         viewport.find('[data-view-id="' + viewId + '"]').click();
@@ -65,7 +72,7 @@
 
 
     function ___REGISTER_VIEW( apiAddr, cameraId ){
-        $.tmpl( tpl.menuCameraList, { name: CAMERA_NAMES[cameraId],viewId: cameraId } ).appendTo( menuRegion.cameras );
+        $.tmpl( tpl.menuCameraList, { name: CAMERA_NAMES[cameraId],viewId: cameraId } ).appendTo( menu );
         $.tmpl( tpl.viewCameraList, { viewId: cameraId } ).appendTo( viewport );
 
         var

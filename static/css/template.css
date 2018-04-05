@@ -368,6 +368,7 @@ nav.main li.nav-item ul.subnav {
 }
 
 nav.main li.nav-item ul.subnav a {
+    pointer-events: none;
     display: block;
     width: 100%;
     text-transform: uppercase;

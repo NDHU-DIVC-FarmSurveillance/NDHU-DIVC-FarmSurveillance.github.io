@@ -21,12 +21,7 @@
                 <ul class="nav-container">
                     <li class="nav-item open">
                         <span>Engineering Building II</span>
-                        <ul class="subnav">
-                            <li><a><div data-view-id='1'>[Ch1] 3rd DIVC Lab</div></a></li>
-                            <li><a><div data-view-id='2'>[Ch2] 3rd Restroom</div></a></li>
-                            <li><a><div data-view-id='3'>[CH3] 3rd Staircase</div></a></li>
-                            <li><a >View All</a></li>
-                        </ul>
+                        <ul class="subnav" data-id="menu"></ul>
                     </li>
                     <li class="nav-item">
                         <span>Status</span>
@@ -76,7 +71,7 @@
             </div>
         </main>
         <script tpl="menu-camera-list" type="text/html">
-            <div data-view-id="${viewId}" class="item"><span class="icon-camera"></span>${name} (Ch-${viewId})</div>
+            <li data-view-id="${viewId}"><a><div>${name}</div></a></li>
         </script>
         <script tpl="view-camera-list" type="text/html">
             <div class="view-grid" data-view-id="${viewId}">
