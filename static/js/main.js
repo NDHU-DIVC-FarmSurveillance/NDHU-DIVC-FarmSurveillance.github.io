@@ -16,10 +16,6 @@
     TIME_INTERVAL   = 5,
 
     menu            = $('[data-id="menu"]'),
-    menuRegion      = {
-        cameras:    menu.find('.cameras'),
-        controller: menu.find('.controller')
-    },
     viewport        = $('[data-id="views"]'),
     tpl             = {
         menuCameraList: $('script[tpl="menu-camera-list"]').html(),
@@ -47,8 +43,6 @@
 
         viewport.find('[data-view-id="' + viewId + '"]').click();
     });
-
-    menuRegion.controller.on('click', '[data-click="view-all"]', ___CLEAR_ALL_STATE);
 
     viewport.on('click', '[data-view-id]', function(e){
         var target = $(e.target);
