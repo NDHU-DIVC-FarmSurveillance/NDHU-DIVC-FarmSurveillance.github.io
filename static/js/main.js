@@ -41,12 +41,10 @@
         target = $(e.target),
         viewId = target.data('view-id');
 
-        if( viewId === 'all' ){
-            ___CLEAR_ALL_STATE();
-            return;
-        }
-
         ___CLEAR_ALL_STATE();
+
+        if( viewId === 'all' ) return;
+
         viewport.find('[data-view-id="' + viewId + '"]').click();
     });
 
