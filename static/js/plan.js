@@ -88,21 +88,21 @@
             crossedAbove: {
                 text:     'D1',
                 count:    0,
-                start:    { x: 485,   y: 70 },
-                end:      { x: 485,   y: 50 }
+                start:    { x: 505,   y: 70 },
+                end:      { x: 505,   y: 50 }
             },
             crossedBelow: {
                 text:     'D2',
                 count:    0,
-                start:    { x: 485,   y: 50 },
-                end:      { x: 485,   y: 70 }
+                start:    { x: 505,   y: 50 },
+                end:      { x: 505,   y: 70 }
             },
             location: {
                 icon:     { x: 460, y: 100 },
                 label:    { x: 365, y: 200 },
                 arrow:    {
-                    d1: { icon: '↑', x: 475, y: 80 },
-                    d2: { icon: '↓', x: 505, y: 80 }
+                    d1: { icon: '↑', x: 495, y: 90 },
+                    d2: { icon: '↓', x: 525, y: 90 }
                 }
             },
             icon: new Image(),
