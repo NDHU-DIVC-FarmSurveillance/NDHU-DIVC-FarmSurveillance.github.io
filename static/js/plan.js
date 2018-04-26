@@ -240,16 +240,6 @@
 
 
 
-            /*
-            // INFO: Point display
-            context.beginPath();
-            context.arc( currLoc.x, currLoc.y, CONFIG.POINT_RADIUS, CONFIG.POINT_START, CONFIG.POINT_END );
-            context.fillStyle = CONFIG.POINT_COLOR[animation.type];
-            context.fill();
-            */
-
-
-
             // ISSUE: This display is not working on svg file. (unknown size)
             if( animation.type === CONFIG.TYPE_CROSSED_ABOVE )
             {
